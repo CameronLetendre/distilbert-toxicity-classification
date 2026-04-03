@@ -1,0 +1,22 @@
+# Data & preprocessing
+pandas
+numpy
+
+# Model
+torch
+transformers
+
+# OCR
+opencv-python
+pytesseract
+easyocr
+
+# Visualization
+matplotlib
+
+# Notebook support
+jupyter
+ipykernel
+
+# Utilities
+pickle5; python_version < "3.8"
