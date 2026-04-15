@@ -109,8 +109,37 @@ def show_time_distribution(data):
     plt.show()
 
 
-def show_target_label_balance():
-    pass
+def show_target_label_balance(data):
+    dfs = []
+    for name in ["CONDA_train", "CONDA_train_cleaned"]:
+        if name in data:
+            dfs.append(data[name])
+            break
+
+    if not dfs:
+        print("No train data found.")
+        return
+
+    combined = pd.concat(dfs, ignore_index=True)
+    counts = combined["intentClass"].value_counts().sort_index()
+
+    # Print counts to terminal
+    print("\nIntent Class Distribution:")
+    for label, count in counts.items():
+        print(f"  {label}: {count}")
+    print(f"  Total: {counts.sum()}")
+
+    # Bar graph
+    plt.figure(figsize=(8, 5))
+    plt.bar(counts.index, counts.values, color=["red", "orange", "steelblue", "gray"], edgecolor="black")
+    for i, (label, count) in enumerate(counts.items()):
+        plt.text(i, count + counts.max() * 0.01, str(count), ha="center", fontweight="bold")
+    plt.xlabel("Intent Class")
+    plt.ylabel("Count")
+    plt.title("Target Label Balance (Intent Classes)")
+    plt.tight_layout()
+    plt.show()
+
 
 def run_visualization():
     # Fetch Data
@@ -118,4 +147,5 @@ def run_visualization():
     show_times(data)
     show_toxicity_over_time(data)
     show_time_distribution(data)
+    show_target_label_balance(data)
 

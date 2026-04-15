@@ -1,4 +1,4 @@
-import data_visualizing
+import model.data_visualizing as data_visualizing
 
 def main(): 
     data_visualizing.run_visualization()

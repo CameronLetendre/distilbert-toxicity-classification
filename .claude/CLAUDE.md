@@ -29,9 +29,21 @@ This is a semester-long team project (1–3 people) worth 30% of the final grade
 
 Six classes: T (toxicity word), S (game slang), C (character name), D (Dota term), P (pronoun), O (other). We do NOT use these — our task is single-task intent classification only.
 
-### Class Imbalance
+### Class Distribution (Training Split)
 
-The dataset is heavily skewed toward class O (other/neutral). E and especially I are minority classes. This is a known challenge — address with class-weighted loss (`CrossEntropyLoss(weight=...)`), NOT synthetic oversampling or paraphrase augmentation.
+| Class | Count | Percentage | Loss Weight |
+|-------|-------|------------|-------------|
+| A     | 1,719 | 6.4%       | 3.915       |
+| E     | 3,528 | 13.1%      | 1.907       |
+| I     | 1,692 | 6.3%       | 3.977       |
+| O     | 19,982| 74.2%      | 0.337       |
+| **Total** | **26,921** | | |
+
+Loss weights computed as: `total / (num_classes × class_count)`
+
+### Class Imbalance Strategy
+
+The dataset is heavily skewed toward class O (74%). I and A are the most underrepresented at ~6% each. Address with class-weighted loss (`CrossEntropyLoss(weight=...)`), NOT synthetic oversampling or paraphrase augmentation. Always report per-class F1 — overall accuracy will be misleading due to imbalance.
 
 ### Known Dataset Limitations
 
@@ -77,6 +89,12 @@ Stage 5: Visualization     → Bounding boxes, sentiment labels, timeline chart
 ---
 
 ## Preprocessing Rules
+
+### Columns to Keep After Dropping Irrelevant Fields:
+- **utterance** — input text (KEEP)
+- **intentClass** — target label E/I/A/O (KEEP)
+- **chatTime** — KEEP. This is used to generate the [TIME=x.xx] game time token. Do NOT drop this column.
+- Drop everything else: Id, conversationId, playerSlot, slotClasses, slotTokens
 
 ### What to do:
 - Expand contractions ("I'm" → "I am")
