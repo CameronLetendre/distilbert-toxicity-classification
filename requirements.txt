@@ -7,8 +7,7 @@ torch
 transformers
 
 # OCR
-opencv-python
-pytesseract
+mss
 easyocr
 
 # Visualization
