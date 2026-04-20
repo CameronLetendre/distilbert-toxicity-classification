@@ -58,7 +58,7 @@ def extract_OCR():
     if curr:
         messages.append(" ".join(curr))
 
-valorant_chat = {"top": 20, "left": 786, "width": 370, "height": 70}
-valorant_time = {"top": 790, "left": 30, "width": 440, "height": 250}
+valorant_time = {"top": 20, "left": 786, "width": 370, "height": 70}
+valorant_chat = {"top": 790, "left": 30, "width": 440, "height": 250}
 
 init_capture(valorant_chat, valorant_time)

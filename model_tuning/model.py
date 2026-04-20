@@ -184,6 +184,9 @@ def train(config):
             best_macro_f1 = macro_f1
             save_path = os.path.join(config["output_dir"], "best_model")
             model.save_pretrained(save_path)
+            train_loader.dataset.tokenizer.save_pretrained(save_path)
+
+            train_loader.dataset.tokenizer.save_pretrained(save_path)
             print(f"\nNew best model saved! Macro F1: {macro_f1:.4f}")
 
     print(f"\n{'='*60}")
