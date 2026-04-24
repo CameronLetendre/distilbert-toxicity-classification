@@ -4,14 +4,18 @@ from time import sleep
 import easyocr
 import cv2
 
+VALORANT = {
+"time": {"top": 20, "left": 786, "width": 370, "height": 70},
+"chat":{"top": 790, "left": 30, "width": 440, "height": 250}
+}
 
-def init_capture(roi_chat, roi_time):
+def init_capture(game):
     with mss.mss() as sct:
         while True:
-            img = sct.grab(roi_chat)
+            img = sct.grab(game["chat"])
             mss.tools.to_png(img.rgb, img.size, output="test_chat.png")
 
-            img = sct.grab(roi_time)
+            img = sct.grab(game["time"])
             mss.tools.to_png(img.rgb, img.size, output="test_time.png")
             sleep(10)
 
@@ -58,7 +62,6 @@ def extract_OCR():
     if curr:
         messages.append(" ".join(curr))
 
-valorant_time = {"top": 20, "left": 786, "width": 370, "height": 70}
-valorant_chat = {"top": 790, "left": 30, "width": 440, "height": 250}
 
-init_capture(valorant_chat, valorant_time)
+
+init_capture(VALORANT)
