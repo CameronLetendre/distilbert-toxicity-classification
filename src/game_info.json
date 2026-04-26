@@ -1,0 +1,9 @@
+
+{
+    "VALORANT": {
+        "won": {"top": 20, "left": 786, "width": 90, "height": 70},
+        "time": {"top": 20, "left": 876, "width": 170, "height": 70},
+        "lost": {"top": 20, "left": 1066, "width": 90, "height": 70},
+        "chat": {"top": 790, "left": 30, "width": 440, "height": 250}
+    }
+}

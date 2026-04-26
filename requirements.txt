@@ -9,6 +9,7 @@ transformers
 # OCR
 mss
 easyocr
+pytesseract
 
 # Visualization
 matplotlib
