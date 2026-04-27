@@ -14,13 +14,16 @@ class CONDADataset(Dataset):
     Args:
         csv_path: Path to preprocessed CSV with columns: utterance, chatTime, intentClass
         max_length: Maximum token sequence length (default 64)
+        use_time_token: If True, prepend [TIME=x.xx] to utterance. If False, use raw utterance.
+            Set to False for the time-token ablation.
     """
 
     LABEL_MAP = {"A": 0, "E": 1, "I": 2, "O": 3}
 
-    def __init__(self, csv_path, max_length=64):
+    def __init__(self, csv_path, max_length=64, use_time_token=True):
         self.df = pd.read_csv(csv_path)
         self.max_length = max_length
+        self.use_time_token = use_time_token
         self.tokenizer = DistilBertTokenizer.from_pretrained("distilbert-base-cased")
 
 
@@ -30,9 +33,11 @@ class CONDADataset(Dataset):
     def __getitem__(self, idx):
         row = self.df.iloc[idx]
 
-        # Format the time token and combine with utterance
-        time_token = f"[TIME={row['chatTime']:.2f}]"
-        text = f"{time_token} {row['utterance']}"
+        if self.use_time_token:
+            time_token = f"[TIME={row['chatTime']:.2f}]"
+            text = f"{time_token} {row['utterance']}"
+        else:
+            text = str(row['utterance'])
 
         # Tokenize
         encoding = self.tokenizer(
@@ -76,7 +81,6 @@ def main():
     print(f"  Min: {min(lengths)}")
     print(f"  Max: {max(lengths)}")
     print(f"  Avg: {sum(lengths) / len(lengths):.1f}")
-
 
 if __name__ == "__main__":
     main()

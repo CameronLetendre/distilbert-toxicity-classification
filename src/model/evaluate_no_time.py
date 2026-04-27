@@ -1,7 +1,7 @@
 from transformers import DistilBertForSequenceClassification
 from pathlib import Path
 from torch.utils.data import DataLoader
-import sys 
+import sys
 from pathlib import Path
 import numpy as np
 import torch
@@ -14,7 +14,7 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(Path(__file__).parent))
 from CONDA_dataset import CONDADataset
 
-checkpoint_dir = REPO_ROOT / "src/model/results/checkpoints/best_model"
+checkpoint_dir = REPO_ROOT / "src/model/results/checkpoints/best_model_no_time"
 TEST_CSV = REPO_ROOT / "model_tuning/data/processed/CONDA_valid_cleaned.csv"
 
 # Label Constants
@@ -41,7 +41,7 @@ def compute_accuracy(y_true, y_pred):
 # Load model and data and set to eval
 model = DistilBertForSequenceClassification.from_pretrained(str(checkpoint_dir))
 
-test_dataset = CONDADataset(csv_path=TEST_CSV)
+test_dataset = CONDADataset(csv_path=TEST_CSV, use_time_token=False)
 test_loader = DataLoader(test_dataset, batch_size=32, shuffle=False)
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")

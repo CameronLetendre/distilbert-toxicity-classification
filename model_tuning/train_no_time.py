@@ -52,11 +52,13 @@ def create_dataloaders(config):
     """Load train and validation datasets into DataLoaders."""
     train_dataset = CONDADataset(
         csv_path=os.path.join(config["data_dir"], "CONDA_train_cleaned.csv"),
-        max_length=config["max_length"]
+        max_length=config["max_length"],
+        use_time_token=False
     )
     val_dataset = CONDADataset(
         csv_path=os.path.join(config["data_dir"], "CONDA_valid_cleaned.csv"),
-        max_length=config["max_length"]
+        max_length=config["max_length"],
+        use_time_token=False
     )
 
     train_loader = DataLoader(
@@ -199,7 +201,7 @@ def train(config):
         # Save best model based on macro F1
         if macro_f1 > best_macro_f1:
             best_macro_f1 = macro_f1
-            save_path = os.path.join(config["output_dir"], "best_model")
+            save_path = os.path.join(config["output_dir"], "best_model_no_time")
             model.save_pretrained(save_path)
             train_loader.dataset.tokenizer.save_pretrained(save_path)
 
@@ -208,7 +210,7 @@ def train(config):
 
     print(f"\n{'='*60}")
     print(f"Training complete. Best Macro F1: {best_macro_f1:.4f}")
-    print(f"Best model saved to: {os.path.join(config['output_dir'], 'best_model')}")
+    print(f"Best model saved to: {os.path.join(config['output_dir'], 'best_model_no_time')}")
     print(f"{'='*60}")
 
     return model
