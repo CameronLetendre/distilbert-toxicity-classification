@@ -1,0 +1,68 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\providecommand\HyField@AuxAddToFields[1]{}
+\providecommand\HyField@AuxAddToCoFields[2]{}
+\abx@aux@refcontext{cms/global//global/global/global}
+\providecommand \babel@aux [2]{\global \let \babel@toc \@gobbletwo }
+\@nameuse{bbl@beforestart}
+\abx@aux@cite{0}{elman2014finite}
+\abx@aux@segm{0}{0}{elman2014finite}
+\abx@aux@cite{0}{IEEE754_2019}
+\abx@aux@segm{0}{0}{IEEE754_2019}
+\abx@aux@cite{0}{Higham_Mary_2022}
+\abx@aux@segm{0}{0}{Higham_Mary_2022}
+\babel@aux{english}{}
+\abx@aux@cite{0}{williams2009roofline}
+\abx@aux@segm{0}{0}{williams2009roofline}
+\abx@aux@cite{0}{Walden2021Performance}
+\abx@aux@segm{0}{0}{Walden2021Performance}
+\abx@aux@cite{0}{chorin1968numerical}
+\abx@aux@segm{0}{0}{chorin1968numerical}
+\abx@aux@cite{0}{wilkinson1964rounding}
+\abx@aux@segm{0}{0}{wilkinson1964rounding}
+\abx@aux@cite{0}{Medvedev2021}
+\abx@aux@segm{0}{0}{Medvedev2021}
+\abx@aux@cite{0}{quinlan}
+\abx@aux@segm{0}{0}{quinlan}
+\@writefile{toc}{\contentsline {section}{\numberline {1}The Mixed Precision Iterative Refinement (IR) Algorithm}{2}{section.1}\protected@file@percent }
+\newlabel{s:I}{{1}{2}{The Mixed Precision Iterative Refinement (IR) Algorithm}{section.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.1}Iterative Refinement}{2}{subsection.1.1}\protected@file@percent }
+\abx@aux@cite{0}{Carson2018}
+\abx@aux@segm{0}{0}{Carson2018}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.2}Convergence Termination}{3}{subsection.1.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2}Experimental Methodology and Solver Configurations}{3}{section.2}\protected@file@percent }
+\newlabel{s:III}{{2}{3}{Experimental Methodology and Solver Configurations}{section.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Test Matrices and Problem Domains}{3}{subsection.2.1}\protected@file@percent }
+\abx@aux@cite{0}{hestenes1952methods}
+\abx@aux@segm{0}{0}{hestenes1952methods}
+\abx@aux@cite{0}{Davis_2011}
+\abx@aux@segm{0}{0}{Davis_2011}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Tools and Environment}{4}{subsection.2.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.1}Test Dataset}{4}{subsubsection.2.2.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Properties of the test matrices used in the benchmarks. Condition numbers are estimated using the 1-norm estimation.}}{4}{table.1}\protected@file@percent }
+\newlabel{tab:matrices}{{1}{4}{Properties of the test matrices used in the benchmarks. Condition numbers are estimated using the 1-norm estimation}{table.1}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.2}Verification Strategy}{4}{subsubsection.2.2.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3}Solver Configurations}{5}{subsection.2.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.4}Preconditioning and Stability Mechanisms}{5}{subsection.2.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.4.1}Preconditioning Strategy}{5}{subsubsection.2.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.4.2}Inner Residual Replacement}{5}{subsubsection.2.4.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3}Performance Evaluation and Results}{5}{section.3}\protected@file@percent }
+\newlabel{s:2.1}{{3}{5}{Performance Evaluation and Results}{section.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Overall Performance Comparison}{6}{subsection.3.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Overall performance comparison. Speedup is calculated relative to the Baseline Double Precision time. The MP Tuned column indicates the specific $\tau $ value that came up with the fastest time.}}{6}{table.2}\protected@file@percent }
+\newlabel{tab:results}{{2}{6}{Overall performance comparison. Speedup is calculated relative to the Baseline Double Precision time. The MP Tuned column indicates the specific $\tau $ value that came up with the fastest time}{table.2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Total solution time comparison across the three configurations. The Mixed Precision (Tuned) approach consistently outperforms the Baseline and Mixed Precision (Fixed) methods.}}{7}{figure.1}\protected@file@percent }
+\newlabel{fig:performance}{{1}{7}{Total solution time comparison across the three configurations. The Mixed Precision (Tuned) approach consistently outperforms the Baseline and Mixed Precision (Fixed) methods}{figure.1}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Relative Error Comparison. The Mixed Precision solver maintains the same order of accuracy ($10^{-16}$) as the Double Precision baseline, confirming that the speedup does not compromise solution quality.}}{8}{figure.2}\protected@file@percent }
+\newlabel{fig:accuracy}{{2}{8}{Relative Error Comparison. The Mixed Precision solver maintains the same order of accuracy ($10^{-16}$) as the Double Precision baseline, confirming that the speedup does not compromise solution quality}{figure.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Tolerance Sensitivity Analysis}{8}{subsection.3.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Sensitivity analysis for the \texttt  {consph} matrix. The curve exhibits a clear minimum at $\tau =10^{-2}$, validating the hypothesis that solving to full single precision (e.g., $10^{-7}$) is often suboptimal.}}{9}{figure.3}\protected@file@percent }
+\newlabel{fig:consph_v_curve}{{3}{9}{Sensitivity analysis for the \texttt {consph} matrix. The curve exhibits a clear minimum at $\tau =10^{-2}$, validating the hypothesis that solving to full single precision (e.g., $10^{-7}$) is often suboptimal}{figure.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Sensitivity Analysis for \texttt  {cfd1}.}}{9}{figure.4}\protected@file@percent }
+\newlabel{fig:cfd1_sensitivity}{{4}{9}{Sensitivity Analysis for \texttt {cfd1}}{figure.4}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Sensitivity Analysis for \texttt  {cfd2}.}}{9}{figure.5}\protected@file@percent }
+\newlabel{fig:cfd2_sensitivity}{{5}{9}{Sensitivity Analysis for \texttt {cfd2}}{figure.5}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Conclusion}{10}{section.4}\protected@file@percent }
+\abx@aux@read@bbl@mdfivesum{nohash}
+\abx@aux@read@bblrerun
+\gdef \@abspage@last{10}

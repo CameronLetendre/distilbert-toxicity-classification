@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="Segoe UI, Arial, sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0f172a"/>
+      <stop offset="1" stop-color="#1e293b"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#38bdf8"/>
+      <stop offset="1" stop-color="#818cf8"/>
+    </linearGradient>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#94a3b8"/>
+    </marker>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+
+  <rect width="1280" height="720" fill="url(#bg)"/>
+
+  <!-- Title -->
+  <text x="640" y="60" text-anchor="middle" fill="#f8fafc" font-size="34" font-weight="700">Why DistilBERT Fits Live Game Chat</text>
+  <line x1="440" y1="78" x2="840" y2="78" stroke="url(#accent)" stroke-width="3"/>
+
+  <!-- Stage 1: Raw chat -->
+  <g transform="translate(60,140)">
+    <rect width="260" height="90" rx="12" fill="#1e293b" stroke="#475569" stroke-width="1.5" filter="url(#shadow)"/>
+    <text x="130" y="32" text-anchor="middle" fill="#94a3b8" font-size="13" font-weight="600">RAW CHAT</text>
+    <text x="130" y="62" text-anchor="middle" fill="#f1f5f9" font-size="18" font-style="italic">"ur trash noob report"</text>
+    <text x="130" y="82" text-anchor="middle" fill="#64748b" font-size="12">[TIME=0.84]</text>
+  </g>
+
+  <!-- Arrow 1 -->
+  <line x1="330" y1="185" x2="385" y2="185" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Stage 2: Subword tokens -->
+  <g transform="translate(395,135)">
+    <rect width="380" height="100" rx="12" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5" filter="url(#shadow)"/>
+    <text x="190" y="28" text-anchor="middle" fill="#38bdf8" font-size="13" font-weight="600">SUBWORD TOKENIZATION</text>
+
+    <!-- Token chips -->
+    <g font-size="14" font-weight="600">
+      <rect x="18"  y="48" width="44" height="32" rx="6" fill="#0f172a" stroke="#38bdf8"/>
+      <text x="40"  y="69" text-anchor="middle" fill="#e0f2fe">ur</text>
+
+      <rect x="70"  y="48" width="62" height="32" rx="6" fill="#0f172a" stroke="#38bdf8"/>
+      <text x="101" y="69" text-anchor="middle" fill="#e0f2fe">trash</text>
+
+      <rect x="140" y="48" width="44" height="32" rx="6" fill="#0f172a" stroke="#38bdf8"/>
+      <text x="162" y="69" text-anchor="middle" fill="#e0f2fe">no</text>
+
+      <rect x="192" y="48" width="58" height="32" rx="6" fill="#0f172a" stroke="#818cf8"/>
+      <text x="221" y="69" text-anchor="middle" fill="#c7d2fe">##ob</text>
+
+      <rect x="258" y="48" width="44" height="32" rx="6" fill="#0f172a" stroke="#38bdf8"/>
+      <text x="280" y="69" text-anchor="middle" fill="#e0f2fe">re</text>
+
+      <rect x="310" y="48" width="58" height="32" rx="6" fill="#0f172a" stroke="#818cf8"/>
+      <text x="339" y="69" text-anchor="middle" fill="#c7d2fe">##port</text>
+    </g>
+  </g>
+
+  <!-- Arrow 2 -->
+  <line x1="785" y1="185" x2="840" y2="185" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Stage 3: 64-slot grid -->
+  <g transform="translate(850,130)">
+    <rect width="370" height="110" rx="12" fill="#1e293b" stroke="#475569" stroke-width="1.5" filter="url(#shadow)"/>
+    <text x="185" y="28" text-anchor="middle" fill="#94a3b8" font-size="13" font-weight="600">MAX LENGTH = 64 TOKENS</text>
+
+    <!-- 8x8 grid -->
+    <g transform="translate(35,42)">
+      <!-- Filled (6 tokens) -->
+      <rect x="0"   y="0"  width="22" height="22" rx="3" fill="#38bdf8"/>
+      <rect x="26"  y="0"  width="22" height="22" rx="3" fill="#38bdf8"/>
+      <rect x="52"  y="0"  width="22" height="22" rx="3" fill="#38bdf8"/>
+      <rect x="78"  y="0"  width="22" height="22" rx="3" fill="#818cf8"/>
+      <rect x="104" y="0"  width="22" height="22" rx="3" fill="#38bdf8"/>
+      <rect x="130" y="0"  width="22" height="22" rx="3" fill="#818cf8"/>
+    </g>
+    <!-- Empty slots: 7 more rows of 8 + 2 in row 1 -->
+    <g transform="translate(35,42)" fill="#334155">
+      <rect x="156" y="0" width="22" height="22" rx="3"/>
+      <rect x="182" y="0" width="22" height="22" rx="3"/>
+    </g>
+    <g transform="translate(35,68)" fill="#334155">
+      <rect x="0"   y="0" width="22" height="22" rx="3"/>
+      <rect x="26"  y="0" width="22" height="22" rx="3"/>
+      <rect x="52"  y="0" width="22" height="22" rx="3"/>
+      <rect x="78"  y="0" width="22" height="22" rx="3"/>
+      <rect x="104" y="0" width="22" height="22" rx="3"/>
+      <rect x="130" y="0" width="22" height="22" rx="3"/>
+      <rect x="156" y="0" width="22" height="22" rx="3"/>
+      <rect x="182" y="0" width="22" height="22" rx="3"/>
+    </g>
+
+    <text x="245" y="58" fill="#cbd5e1" font-size="13">6 used</text>
+    <text x="245" y="78" fill="#64748b" font-size="13">58 padded</text>
+    <text x="245" y="98" fill="#22c55e" font-size="12" font-weight="600">→ short inputs</text>
+  </g>
+
+  <!-- Down arrow to model -->
+  <line x1="640" y1="260" x2="640" y2="320" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- DistilBERT block -->
+  <g transform="translate(420,330)">
+    <rect width="440" height="90" rx="14" fill="url(#accent)" filter="url(#shadow)"/>
+    <text x="220" y="38" text-anchor="middle" fill="#0f172a" font-size="20" font-weight="700">DistilBERT-CONDA</text>
+    <text x="220" y="64" text-anchor="middle" fill="#0f172a" font-size="13" font-weight="500">6 layers · 768 hidden · ~2× faster than BERT</text>
+    <text x="220" y="80" text-anchor="middle" fill="#1e293b" font-size="12">[CLS] → classification head</text>
+  </g>
+
+  <!-- Down arrow to labels -->
+  <line x1="640" y1="430" x2="640" y2="465" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Output labels -->
+  <g transform="translate(450,475)" font-size="14" font-weight="700">
+    <rect x="0"   y="0" width="70" height="36" rx="8" fill="#dc2626"/>
+    <text x="35"  y="23" text-anchor="middle" fill="white">E</text>
+    <text x="35"  y="55" text-anchor="middle" fill="#94a3b8" font-size="11" font-weight="500">Explicit</text>
+
+    <rect x="90"  y="0" width="70" height="36" rx="8" fill="#f59e0b"/>
+    <text x="125" y="23" text-anchor="middle" fill="white">I</text>
+    <text x="125" y="55" text-anchor="middle" fill="#94a3b8" font-size="11" font-weight="500">Implicit</text>
+
+    <rect x="180" y="0" width="70" height="36" rx="8" fill="#3b82f6"/>
+    <text x="215" y="23" text-anchor="middle" fill="white">A</text>
+    <text x="215" y="55" text-anchor="middle" fill="#94a3b8" font-size="11" font-weight="500">Action</text>
+
+    <rect x="270" y="0" width="70" height="36" rx="8" fill="#10b981"/>
+    <text x="305" y="23" text-anchor="middle" fill="white">O</text>
+    <text x="305" y="55" text-anchor="middle" fill="#94a3b8" font-size="11" font-weight="500">Other</text>
+  </g>
+
+  <!-- Bottom three takeaways -->
+  <g transform="translate(60,600)">
+    <!-- Latency -->
+    <g>
+      <circle cx="30" cy="30" r="26" fill="#0f172a" stroke="#38bdf8" stroke-width="2"/>
+      <text x="30" y="38" text-anchor="middle" fill="#38bdf8" font-size="22">⚡</text>
+      <text x="70" y="22" fill="#f1f5f9" font-size="15" font-weight="700">Low Latency</text>
+      <text x="70" y="42" fill="#94a3b8" font-size="12">Real-time on live</text>
+      <text x="70" y="58" fill="#94a3b8" font-size="12">gameplay</text>
+    </g>
+    <!-- Short inputs -->
+    <g transform="translate(420,0)">
+      <circle cx="30" cy="30" r="26" fill="#0f172a" stroke="#818cf8" stroke-width="2"/>
+      <text x="30" y="38" text-anchor="middle" fill="#818cf8" font-size="20">64</text>
+      <text x="70" y="22" fill="#f1f5f9" font-size="15" font-weight="700">Short Inputs</text>
+      <text x="70" y="42" fill="#94a3b8" font-size="12">Max length 64 — no</text>
+      <text x="70" y="58" fill="#94a3b8" font-size="12">need for larger models</text>
+    </g>
+    <!-- Subword -->
+    <g transform="translate(820,0)">
+      <circle cx="30" cy="30" r="26" fill="#0f172a" stroke="#22c55e" stroke-width="2"/>
+      <text x="30" y="38" text-anchor="middle" fill="#22c55e" font-size="20">⊟</text>
+      <text x="70" y="22" fill="#f1f5f9" font-size="15" font-weight="700">Subword Tokens</text>
+      <text x="70" y="42" fill="#94a3b8" font-size="12">Handles game slang</text>
+      <text x="70" y="58" fill="#94a3b8" font-size="12">& typos gracefully</text>
+    </g>
+  </g>
+</svg>

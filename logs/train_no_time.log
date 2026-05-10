@@ -1,0 +1,170 @@
+cuda
+Using device: cuda
+Configuration: {'model_name': 'distilbert-base-cased', 'num_labels': 4, 'max_length': 64, 'batch_size': 32, 'learning_rate': 2e-05, 'epochs': 5, 'warmup_ratio': 0.1, 'output_dir': 'C:\\Users\\piedu\\Documents\\Fall 2025\\Numerical\\Project\\Project\\src\\model\\results\\checkpoints', 'data_dir': 'C:\\Users\\piedu\\Documents\\Fall 2025\\Numerical\\Project\\Project\\model_tuning\\data\\processed', 'seed': 42}
+
+Train samples: 26921
+Validation samples: 8973
+Loading weights:   0%|          | 0/100 [00:00<?, ?it/s]Loading weights: 100%|##########| 100/100 [00:00<00:00, 3660.53it/s]
+[transformers] [1mDistilBertForSequenceClassification LOAD REPORT[0m from: distilbert-base-cased
+Key                     | Status     | 
+------------------------+------------+-
+vocab_layer_norm.weight | UNEXPECTED | 
+vocab_layer_norm.bias   | UNEXPECTED | 
+vocab_projector.bias    | UNEXPECTED | 
+vocab_transform.weight  | UNEXPECTED | 
+vocab_transform.bias    | UNEXPECTED | 
+pre_classifier.weight   | MISSING    | 
+classifier.weight       | MISSING    | 
+pre_classifier.bias     | MISSING    | 
+classifier.bias         | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+
+============================================================
+Epoch 1/5
+============================================================
+Train Loss: 0.7487
+Val Loss:   0.5139
+Macro F1:   0.8040
+
+Per-class F1: A=0.8014  E=0.8138  I=0.6682  O=0.9326  
+
+              precision    recall  f1-score   support
+
+           A     0.7959    0.8069    0.8014       580
+           E     0.7575    0.8791    0.8138      1183
+           I     0.6076    0.7423    0.6682       582
+           O     0.9568    0.9096    0.9326      6628
+
+    accuracy                         0.8881      8973
+   macro avg     0.7795    0.8345    0.8040      8973
+weighted avg     0.8975    0.8881    0.8913      8973
+
+Confusion Matrix:
+[[ 468   21    7   84]
+ [  25 1040   39   79]
+ [  17   24  432  109]
+ [  78  288  233 6029]]
+Writing model shards:   0%|          | 0/1 [00:00<?, ?it/s]Writing model shards: 100%|##########| 1/1 [00:00<00:00,  1.64it/s]Writing model shards: 100%|##########| 1/1 [00:00<00:00,  1.64it/s]
+
+New best model saved! Macro F1: 0.8040
+
+============================================================
+Epoch 2/5
+============================================================
+Train Loss: 0.4005
+Val Loss:   0.4813
+Macro F1:   0.8023
+
+Per-class F1: A=0.7768  E=0.8348  I=0.6686  O=0.9288  
+
+              precision    recall  f1-score   support
+
+           A     0.7202    0.8431    0.7768       580
+           E     0.7873    0.8884    0.8348      1183
+           I     0.5841    0.7818    0.6686       582
+           O     0.9625    0.8974    0.9288      6628
+
+    accuracy                         0.8852      8973
+   macro avg     0.7635    0.8527    0.8023      8973
+weighted avg     0.8992    0.8852    0.8897      8973
+
+Confusion Matrix:
+[[ 489   17   12   62]
+ [  24 1051   26   82]
+ [  15   24  455   88]
+ [ 151  243  286 5948]]
+
+============================================================
+Epoch 3/5
+============================================================
+Train Loss: 0.3057
+Val Loss:   0.5769
+Macro F1:   0.8243
+
+Per-class F1: A=0.7749  E=0.8510  I=0.7266  O=0.9449  
+
+              precision    recall  f1-score   support
+
+           A     0.7194    0.8397    0.7749       580
+           E     0.8292    0.8740    0.8510      1183
+           I     0.7248    0.7285    0.7266       582
+           O     0.9568    0.9332    0.9449      6628
+
+    accuracy                         0.9061      8973
+   macro avg     0.8075    0.8438    0.8243      8973
+weighted avg     0.9096    0.9061    0.9073      8973
+
+Confusion Matrix:
+[[ 487   20    6   67]
+ [  24 1034   31   94]
+ [  20   20  424  118]
+ [ 146  173  124 6185]]
+Writing model shards:   0%|          | 0/1 [00:00<?, ?it/s]Writing model shards: 100%|##########| 1/1 [00:00<00:00,  3.10it/s]Writing model shards: 100%|##########| 1/1 [00:00<00:00,  3.09it/s]
+
+New best model saved! Macro F1: 0.8243
+
+============================================================
+Epoch 4/5
+============================================================
+Train Loss: 0.2354
+Val Loss:   0.6022
+Macro F1:   0.8267
+
+Per-class F1: A=0.7845  E=0.8449  I=0.7328  O=0.9444  
+
+              precision    recall  f1-score   support
+
+           A     0.7234    0.8569    0.7845       580
+           E     0.8090    0.8842    0.8449      1183
+           I     0.7353    0.7302    0.7328       582
+           O     0.9601    0.9292    0.9444      6628
+
+    accuracy                         0.9057      8973
+   macro avg     0.8069    0.8501    0.8267      8973
+weighted avg     0.9103    0.9057    0.9072      8973
+
+Confusion Matrix:
+[[ 497   15    6   62]
+ [  27 1046   27   83]
+ [  19   27  425  111]
+ [ 144  205  120 6159]]
+Writing model shards:   0%|          | 0/1 [00:00<?, ?it/s]Writing model shards: 100%|##########| 1/1 [00:00<00:00,  3.06it/s]Writing model shards: 100%|##########| 1/1 [00:00<00:00,  3.06it/s]
+
+New best model saved! Macro F1: 0.8267
+
+============================================================
+Epoch 5/5
+============================================================
+Train Loss: 0.1811
+Val Loss:   0.6773
+Macro F1:   0.8377
+
+Per-class F1: A=0.8003  E=0.8579  I=0.7421  O=0.9504  
+
+              precision    recall  f1-score   support
+
+           A     0.7617    0.8431    0.8003       580
+           E     0.8438    0.8724    0.8579      1183
+           I     0.7581    0.7268    0.7421       582
+           O     0.9560    0.9448    0.9504      6628
+
+    accuracy                         0.9145      8973
+   macro avg     0.8299    0.8468    0.8377      8973
+weighted avg     0.9158    0.9145    0.9150      8973
+
+Confusion Matrix:
+[[ 489   14    5   72]
+ [  25 1032   28   98]
+ [  19   22  423  118]
+ [ 109  155  102 6262]]
+Writing model shards:   0%|          | 0/1 [00:00<?, ?it/s]Writing model shards: 100%|##########| 1/1 [00:00<00:00,  2.76it/s]Writing model shards: 100%|##########| 1/1 [00:00<00:00,  2.76it/s]
+
+New best model saved! Macro F1: 0.8377
+
+============================================================
+Training complete. Best Macro F1: 0.8377
+Best model saved to: C:\Users\piedu\Documents\Fall 2025\Numerical\Project\Project\src\model\results\checkpoints\best_model_no_time
+============================================================

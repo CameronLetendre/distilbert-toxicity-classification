@@ -1,0 +1,316 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% MANUSCRIPT TEMPLATE: This is the official manuscript template (v1.0, released 31 August 2025) for Constitutional Studies. If you are new to using LaTeX to layout manuscripts in Overleaf, please read this helpful tutorial at www.overleaf.com/learn/latex/Learn_LaTeX_in_30_minutes. For more on Constitutional Studies, visit constitutionalstudies.org.
+
+% TO PREPARE YOUR MANUSCRIPT: Review our manuscript guidelines at https://constitutionalstudies-ojs-utexas.tdl.org/cs/manuscriptguidelines. Then follow the instructions in green below at the beginning of each section.
+
+% TO SUBMIT YOUR MANUSCRIPT: Follow our submission process at https://constitutionalstudies-ojs-utexas.tdl.org/cs/submit.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% DOCUMENT SETUP: Do not make any changes to this section.
+\documentclass[a4paper,10.5pt,twoside]{article}
+\hyphenpenalty=8000
+\textwidth=125mm
+\textheight=200mm
+\usepackage[top=3cm, bottom=3cm, inner=3cm, outer=3cm, includehead]{geometry}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhead{}
+\fancyfoot{}
+\raggedbottom
+\usepackage{xurl}
+\usepackage{graphicx}
+\usepackage{alltt}
+\usepackage{booktabs}
+\usepackage{float} 
+\usepackage{amsmath}
+\usepackage[hidelinks, pdftex]{hyperref}
+\usepackage{amsfonts}
+\urlstyle{same}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{csquotes}
+\usepackage[notes, backend=biber]{biblatex-chicago}
+\bibliography{references}
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+
+% LANGUAGE SELECTION: If you are submitting your manuscript in English, do not make any changes to this section. If you are submitting your manuscript in French, add a % in front of the "\usepackage[english]{babel}" command and remove the % in front of the "\usepackage[french]{babel}" command below; this will apply French spelling and formatting rules to the document. If you are submitting your manuscript in Spanish, add a % in front of the "\usepackage[english]{babel}" command and remove the % in front of the "\usepackage[spanish]{babel}" command below; this will apply Spanish spelling and formatting rules to the document.
+\usepackage[english]{babel}
+%\usepackage[french]{babel}
+%\usepackage[spanish]{babel}
+
+% AUTHOR AND TITLE: Replace "Author1" with your first author's information where noted below. Add or remove additional author information as needed, depending on the number of authors on your manuscript. Replace "Article title" with your article title where noted below.
+\begin{document}
+\fancyhead[LE]{\thepage\ \ \ \   }
+\fancyhead[RO]{Numerical Analysis, COS 574, (2025)\ \ \ \ \thepage}
+\begin{center}
+\LARGE
+\textbf{ In-Game Chat Toxicity Intent Classification} \\[12pt]
+\normalsize
+\textbf {Cameron Letendre}\\[4pt]
+\end{center}
+
+% ABSTRACT AND KEYWORDS: Replace "Abstract text" with your abstract text of 100-200 words where noted below. Replace "keyword, keyword, keyword" with your 5-10 keywords, separated by commas, where noted below. 
+\begin{abstract}
+\normalsize
+Inside this paper we explore the possibility of creating a more accuracte prediction of toxicity in gaming messages, while trying to preserve speed for a real-time overlay. Modern gaming is known to be very structurally different from common langauge, but more than that because of the heavy involvement of slang, acronyms, and in-game vocabulary along with an average of 4 characters per message this creates a challenge for machine learning models. In this paper we attempt to do intent classification on these messages predicting them into one of four groups. (E) Explicit Toxicity, (I) Implicit Toxicity, (A) Action, and (O) Other. This classification task for this assigment is done by a distilbert model that is fine tuned on a labeled dataset known as CONDA. 
+
+\vspace{1em}
+
+\textbf{Keywords:} .
+\end{abstract}
+
+% MAIN BODY: Replace "Section Title," "Subsection Title," and "Subsubsection Title" with your section, subsection, and subsubsection titles, using title case to capitalize the first and all major words in these titles. Replace lorem ipsum text with your text for each section and subsection. Add additional sections and subsections as needed.
+\section*{Introduction}
+
+    In modern computing today, Floating-point Systems control how a computer's ability to represent real numbers impacts both the speed and accuracy of scientific calculations. A major challenge in this field is to solve Systems of Linear Algebraic Equations (SLAE), following the form:
+
+    \[
+    \mathbf{A}\mathbf{x} = \mathbf{b}
+    \]
+
+    where $\mathbf{A} \in \mathbb{R}^{n \times n}$ is the coefficient matrix, $\mathbf{x} \in \mathbb{R}^{n}$ is the unknown solution vector, and $\mathbf{b} \in \mathbb{R}^{n}$ is the known right-hand side vector. Solving a SLAE means determining the vector $\mathbf{x}$, typically using direct methods such as Gaussian elimination or LU Decomposition, or through iterative techniques \autocite{elman2014finite}.
+
+    SLAE are present everywhere, used to simulate real-world physics applied in many places like modeling fluid dynamics, analyzing structural integrity, and finding the best-fit line for a dataset using the Least Squares method. As the scale of these simulations increases, the size of the systems grows, becoming incredibly large and complex. This high computational cost means that solving SLAE can easily create a bottleneck in High Performance Computing (HPC). So optimizing the performance of linear solvers is a critical objective in numerical analysis.
+    \\\\
+
+\subsubsection*{Floating-Point Standards}    
+In the \textbf{IEEE Standard for Floating-Point Arithmetic} \autocite{IEEE754_2019}, computers handle numbers consistently using two specific formats:
+    \begin{itemize}
+    \item \textbf{(Float64) Double Precision:}\\
+        The standard for high accuracy. It uses 64-bit memory to  provide high precision with 53 bits for significant digits. With the large precision though it results in slower memory bandwidth usage.
+            
+    \item \textbf{(Float32)Single Precision:}\\
+        The standard for high speed. It uses 32-bit memory to take up half of the space and moves faster than double precision, but is less accurate because of a smaller range of numbers. 
+    
+    \end{itemize}
+    Even though both of these methods have their own strengths, and weaknesses, traditionally scientific simulations utilize double precision floating-point arithmetic to ensure high accuracy and stability. Researchers though, are always looking for ways to create an optimum system for both speed and accuracy, and this is where the idea of \textbf{Mixed Precision Iterative refinement} solvers come in \autocite{Higham_Mary_2022}.
+        
+    The idea is that you can use a lower-precision inner solver to do the heavier computational load for the bulk of the work, while having a high-precision outer loop to ensure the final answer is correct. 
+    
+    Because sparse iterative solvers are typically memory bound rather than compute bound, explained by the Roofline Model \autocite{williams2009roofline} and confirmed on modern hardware \autocite{Walden2021Performance}, performing the inner solve in single precision reduces the volume of data transferred through memory, improving the overall amount being passed. This paper goes over this with partial differential equations that do not change over time called elliptic equations. In this paper we are interested specifically in the Pressure Poisson Equation that occurs in incompressible turbulent flow simulations \autocite{chorin1968numerical}.
+
+\section{The Mixed Precision Iterative Refinement (IR) Algorithm}\label{s:I}
+
+\subsection{Iterative Refinement}
+
+The concept of Iterative Refinement (IR), was originally developed to improve the accuracy of
+algorithms that calculate the exact solution of a SLAE in a finite number of steps, known as a direct solver. \autocite{wilkinson1964rounding} This has been adapted though to the mixed-precision paradigm to effectively and efficiently solve large SLAE \autocite{Medvedev2021}. This approach leverages the speed of lower-precision arithmetic while maintaining the stability and final accuracy with higher precision arithmetic.
+
+
+As we said before the Mixed Precision IR algorithm operates two floating-point environments, an outer loop high-precision format and an inner loop lower-precision format. The core idea is to perform the bulk of the expensive matrix operations in the faster, lower precision loop, and only use the higher precision for the update steps to mitigate the building of rounding errors from the lower precision. \\
+
+The IR method proceeds iteratively to refine an approximate solution vector $\mathbf{x}^{(i)}$ using the following key steps:
+
+\begin{enumerate}
+    \item \textbf{Residual Calculation (High Precision):} 
+    Compute the residual vector $\mathbf{r}^{(i)}$ using double precision (Float64). This step quantifies the discrepancy between the current approximation and the true solution without losing information:
+    \[
+    \mathbf{r}^{(i)} = \mathbf{b} - \mathbf{A}\mathbf{x}^{(i)}
+    \]
+    
+    \item \textbf{Correction System Solution (Low Precision):} 
+    The residual $\mathbf{r}^{(i)}$ is casted to single precision (Float32) for the error correction equation. The system is solved using a single-precision copy of the matrix $\mathbf{A}$, denoted as $\mathbf{A}_{sp}$:
+    \[
+    \mathbf{A}_{sp}\mathbf{z}_{sp}^{(i)} \approx \mathbf{r}_{sp}^{(i)}
+    \]
+    Here, $\mathbf{z}_{sp}^{(i)}$ represents the error correction vector computed in single precision. This step is where the majority of the computational work occurs (the inner CG solve), using the 32-bit functionality to reduce the amount of memory bandwidth that's being used per inner iteration.
+    
+    \item \textbf{Solution Update (High Precision):} 
+    The single-precision correction vector we get from the step 2 ($\mathbf{z}_{sp}^{(i)}$) is cast back to double precision ($\mathbf{z}^{(i)}$) and applied to the current solution. This update is performed in Float64 to ensure the improvement is applied accurately \autocite{quinlan}:
+    \[
+    \mathbf{x}^{(i+1)} = \mathbf{x}^{(i)} + \mathbf{z}^{(i)}
+    \]
+\end{enumerate}
+
+This cycle repeats until a certain level of convergence and accuracy is achieved. The success of the method is dependent on the fact that the matrix-vector multiplication required for the correction system (Step 2) is performed in the fast, lower precision, which is where the bulk of the computational work lies.
+
+
+\subsection{Convergence Termination}
+The efficiency gain achieved by Mixed Precision IR depends heavily on balancing the performance of the inner solver against the number of outer IR iterations required for convergence. Since the inner solver (Step 2) is the primary source of computational speedup, it must be used efficiently.
+
+Wasting computational cycles by over-converging the inner correction system ($\mathbf{A}\mathbf{z}^{(i)} \approx \mathbf{r}^{(i)}$) negates the speedup gained by using mixed precision. Conversely, under-converging the inner loop can cause the outer IR loop to require too many iterations or even fail to converge.
+
+Therefore, a crucial design choice is the \textbf{inner solver's termination criterion}. The objective is to find a correction vector $\mathbf{z}$ that reduces the residual $\mathbf{r}$ just enough to ensure rapid convergence of the outer IR process, without achieving full machine precision in the inner loop. This trade-off is visualized in Figure \ref{fig:consph_v_curve}, where an optimal tolerance minimizes the total solution time.
+
+A widely adopted strategy is to use a \textbf{relative stopping criterion} based on the initial residual $\mathbf{r}^{(i)}$. The inner solver is typically terminated when the norm of the inner residual satisfies \autocite{Carson2018}:
+
+\[
+\|\mathbf{r}^{(i)} - \mathbf{A}\mathbf{z}^{(i)}\| \le \tau \cdot \|\mathbf{r}^{(i)}\|
+\]
+
+The symbol $\tau$ represents the tolerance parameter. It is of the initial residual that is allowed to remain,  dictating how much required precision of the inner solution there must be before the inner solver is allowed to stop, and pass the back to the outer loop. 
+
+The value $\tau$ is often set close to the unit round-off of the lower-precision format (e.g., $\tau \approx 10^{-7}$ for Single Precision). However, empirical tuning (as seen in Figure \ref{fig:consph_v_curve}) often reveals that a looser tolerance (e.g., $10^{-3}$) can further enhance efficiency by reducing the workload of the inner solver while maintaining a sufficient accuracy for the outer loop update. 
+
+\section{Experimental Methodology and Solver Configurations}\label{s:III}
+
+Following the theoretical framework of the Mixed Precision IR procedure, the next critical step is to validate its performance gains and the impact of the inner solver's termination criteria ($\tau$) through experimentation. 
+
+The objective of the experimental phase is to first, monitor the practical speedup achieved by the MPIR algorithm compared to a standard Double Precision solver. (a single precision solver test does not work because our relative residual is of $\mathbf{10}^{-12}$, outside of the range of single precision) Second, to determine the optimal balance point, as visualized in Figure \ref{fig:consph_v_curve}, by systematically testing various configurations.
+
+
+\subsection{Test Matrices and Problem Domains}
+
+The systems of linear equations used for testing were selected to represent realistic HPC problems that would typically be solves with a SLAE. A primary focus is on matrices derived from the discretization of the Pressure Poisson Equation (PPE), which arises naturally in incompressible turbulent flow simulations, such as those governed by the Navier-Stokes equations. The PPE typically yields large, sparse, and ill-conditioned matrices, making it a highly relevant benchmark for iterative solvers.
+
+In the tests though we also used matrices from structural engineering to ensure the robustness of the mixed-precision approach across different physical domains, as well as cover a variety of ill-conditioned and ranging nonzero sparse matrices. All selected matrices are Symmetric Positive Definite (SPD), which was a necessary condition for effective application of the Conjugate Gradient method \autocite{hestenes1952methods}. 
+
+\subsection{Tools and Environment}
+
+All numerical experiments were conducted on a workstation within the University of Southern Maine Computer Science lab. It is equipped with an \textbf{11th Gen Intel(R) Core(TM) i7-11700} processor running at \textbf{2.50GHz} and \textbf{32 GB} of system memory. 
+
+The algorithms were implemented in \textbf{Julia (version 1.11.7)} running on \textbf{Ubuntu 24.04.3 LTS}. We perform sparse matrix operations using Julia's \texttt{SparseArrays} library. Standard IEEE 754 floating-point arithmetic was strictly adhered to for both single (FP32) and double (FP64) precision calculations. Additionally, \textbf{Python (version 3.12.7)} was used for running the system pipeline and generating visualization graphs present.
+
+\subsubsection{Test Dataset}
+To evaluate robustness across different scales, a suite of sparse matrices representing the Pressure Poisson Equation was selected from the \textbf{SuiteSparse Matrix Collection} \autocite{Davis_2011}. These matrices vary in dimension ($nxn$) and sparsity, providing a comprehensive test for our system. The matrices were selected based on being Symmetrical Positive determinant (SPD) with varying conditioning and a focus on Computational Fluid Dynamics Problems, but also includes a large 2D/3D engineering.
+
+The properties of the matrices are detailed in Table \ref{tab:matrices} below.
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{l c c c}
+    \hline
+    \textbf{Matrix Name} & \textbf{Rows ($N$)} & \textbf{Non-zeros ($nnz$)} & \textbf{Condition Num. (Est.)} \\
+    \hline
+    cfd1   & 70,656  & 1,825,580 & $2.3 \times 10^3$ \\
+    cfd2   & 123,440 & 3,085,406 & $6.8 \times 10^3$ \\
+    consph & 83,334  & 6,010,480 & $7.7 \times 10^4$ \\
+    \hline
+    \end{tabular}
+    \caption{Properties of the test matrices used in the benchmarks. Condition numbers are estimated using the 1-norm estimation.}
+    \label{tab:matrices}
+\end{table}
+
+\subsubsection{Verification Strategy}
+To precisely measure the accuracy of the solvers, we utilized the Method of Manufactured Solutions. For each test matrix, a true solution vector $\mathbf{x}_{true}$ was defined as a vector of ones:
+\[
+\mathbf{x}_{true} = [1, 1, \dots, 1]^T
+\]
+The right-hand side vector was then computed as $\mathbf{b} = \mathbf{A}\mathbf{x}_{true}$. This allows for the calculation of the explicit relative error 
+\[\frac{\|\mathbf{x}_{\text{approx}} - \mathbf{x}_{\text{true}}\|}{\|\mathbf{x}_{\text{true}}\|}\]
+in addition to the standard residual norm, providing our metric for solver correctness.
+
+
+\subsection{Solver Configurations}
+
+Conducting the performance comparison, the following three distinct solver configurations we discussed earlier are implemented and benchmarked on our architecture:
+
+\begin{enumerate}
+    \item \textbf{Baseline Double Precision:} The standard solver, where all computations are performed entirely in Double Precision. This serves as the reference for accuracy and time consumption, and acts as our baseline for performance. (Implemented as \texttt{run\_baseline\_double} in the codebase).
+    \item \textbf{Mixed Precision (Fixed $\tau$):} The Iterative Refinement algorithm where the outer loop uses \textit{double precision} for the residual calculation and update, and the inner solver uses \textit{single precision}. The inner solver is terminated using a fixed tolerance ($\tau=10^{-7}$) to isolate the performance cost of over-convergence.
+    \item \textbf{Mixed Precision (Tuned $\tau$):} The Iterative Refinement algorithm using 64/32 bit precision loops, but with the inner termination tolerance $\tau$ experimentally tuned (e.g., $\tau=10^{-3}$) to minimize the total run time, while reflecting the optimal balance point. This configuration corresponds to the \texttt{run\_tau\_sweep} routine in the software implementation.
+\end{enumerate}
+
+The performance metric recorded for comparison is the total solution time (Program Run Time) required to achieve an outer residual tolerance of $10^{-12}$, ensuring all configurations yield a final solution of equivalently high quality.
+
+\subsection{Preconditioning and Stability Mechanisms}
+
+To ensure the robustness and speed of the inner solver, two critical numerical techniques were implemented:
+
+\subsubsection{Preconditioning Strategy}
+To accelerate the convergence of the inner Conjugate Gradient solver, we apply a preconditioning step that  uses a \textbf{single-precision} preconditioner matrix $\mathbf{M} \approx \mathbf{A}_{sp}$.
+
+First the solver will attempt to construct an Incomplete Cholesky factorization with a drop tolerance of $10^{-3}$ to preserve sparsity. If the factorization is unstable or fails, the system automatically falls back to a Jacobi preconditioner. This hybrid approach ensures that the inner solver remains robust even when the matrix is ill-conditioned. This implementation first involves filtering the matrix for values under a drop tolerance, and then calling $cholesky()$ within the Julia standard the library. The Jacobi is implemented with extracting the diagonal with $diag()$ and computing the inverse with $(1.0 ./ d)$ element wise.
+
+\subsubsection{Inner Residual Replacement}
+Because the inner solver operates in single precision, the recursively updated residual vector tends to drift from the true residual ($\mathbf{b} - \mathbf{A}\mathbf{x}$) due to accumulated rounding errors. To mitigate this, we  use a \textbf{Residual Replacement} strategy. Every 200 inner iterations, the residual is recomputed from the matrix-vector product to prevent "stagnation" of the convergence, ensuring the inner solver reports an accurate residual norm to the outer loop.
+
+
+
+\section{Performance Evaluation and Results}\label{s:2.1}
+This section we'll present the results of the experiment, analyzing the overall run time and speedup achieved by the MPIR algorithm relative to the double-precision baseline. We also look into the results of the sensitivity of the solution time to the inner solver tolerance ($\tau$).
+
+\subsection{Overall Performance Comparison}
+
+Table~\ref{tab:results} summarizes the performance of the three solver configurations across the test matrices. The Tuned results reflect the best time achieved during the $\tau$ sweep.
+
+From what we can see from the result, the data demonstrates significant computational gains, in Figure~\ref{fig:performance}. The \textbf{Mixed Precision (Fixed)} configuration achieved a speedup between $2.1\times$ and $6.0\times$ compared to the baseline. The \textbf{Mixed Precision (Tuned)} configuration even further improved the performance, achieving a speedup as high as $8.6\times$ for the \texttt{cfd2} matrix.
+
+Crucially, these performance gains were achieved without compromising solution quality. As shown in Figure \ref{fig:accuracy}, the relative error of the Mixed Precision solver remains on the order of $10^{-10}$ to $10^{-11}$, matching the accuracy of the standard Double Precision baseline. Minor variations in the final error are expected due to the different convergence paths taken by the solvers, but both methods successfully satisfy the strict outer residual tolerance of $10^{-12}$.
+
+\begin{table}[h!]
+    \centering
+    \small
+    \begin{tabular}{l c c c c c}
+    \toprule
+    & \textbf{Baseline} & \multicolumn{2}{c}{\textbf{MP (Fixed $\tau=10^{-7}$)}} & \multicolumn{2}{c}{\textbf{MP (Tuned Best)}} \\
+    \cmidrule(lr){2-2} \cmidrule(lr){3-4} \cmidrule(lr){5-6}
+    \textbf{Matrix} & \textbf{Time (s)} & \textbf{Time (s)} & \textbf{Speedup} & \textbf{Time (s)} & \textbf{Speedup} \\
+    \midrule
+    cfd1   & 4.11  & 1.88  & \textbf{2.19$\times$} & 0.97 ($\tau=10^{-2}$) & \textbf{4.24$\times$} \\
+    cfd2   & 23.10 & 3.83  & \textbf{6.03$\times$} & 2.67 ($\tau=10^{-4}$) & \textbf{8.65$\times$} \\
+    consph & 79.87 & 33.20 & \textbf{2.41$\times$} & 21.04 ($\tau=10^{-2}$) & \textbf{3.80$\times$} \\
+    \bottomrule
+    \end{tabular}
+    
+    \caption{Overall performance comparison. Speedup is calculated relative to the Baseline Double Precision time. The MP Tuned column indicates the specific $\tau$ value that came up with the fastest time.}
+    \label{tab:results}
+\end{table}
+
+\begin{figure}[H] % Changed from [htbp] to [H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{performance_comparison.png}
+    \caption{Total solution time comparison across the three configurations. The Mixed Precision (Tuned) approach consistently outperforms the Baseline and Mixed Precision (Fixed) methods.}
+    \label{fig:performance}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{accuracy_verification.png}
+    \caption{Relative Error Comparison. The Mixed Precision solver maintains the same order of accuracy ($10^{-16}$) as the Double Precision baseline, confirming that the speedup does not compromise solution quality.}
+    \label{fig:accuracy}
+\end{figure}
+
+\subsection{Tolerance Sensitivity Analysis}
+
+The impact of the inner solver tolerance $\tau$ on total solution time was analyzed to try and find an optimal switching point. The data for the \texttt{consph} matrix (Figure \ref{fig:consph_v_curve})  illustrates the theoretical Descent-to-Ascent behavior:
+
+\begin{itemize}
+    \item \textbf{Looser Tolerance ($\tau = 10^{-1}$):} Time = 23.45s. The inner solver is too inaccurate, forcing the expensive outer loop to perform more iterations to correct the error.
+    \item \textbf{Optimal Tolerance ($\tau = 10^{-2}$):} Time = 21.04s. This is the sweet spot where the inner solver does enough work to be effective but stops before wasting cycles on converged bits that will be lost during the update.
+    \item \textbf{Tighter Tolerance ($\tau = 10^{-4}$):} Time = 33.53s. The inner solver works too hard to achieve precision that is unnecessary for the outer loop update, degrading overall performance.
+\end{itemize}
+
+Similar behavior was observed for \texttt{cfd1} (Figure \ref{fig:cfd1_sensitivity}), where $\tau=10^{-2}$ was also optimal. Interestingly, \texttt{cfd2} (Figure \ref{fig:cfd2_sensitivity}) benefited from a tighter tolerance ($\tau=10^{-4}$), suggesting that for certain condition numbers, higher precision in the correction step is worth the computational cost.
+
+\begin{figure}[H] % Changed from [htbp] to [H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{tolerance_sensitivity.png}
+    \caption{Sensitivity analysis for the \texttt{consph} matrix. The curve exhibits a clear minimum at $\tau=10^{-2}$, validating the hypothesis that solving to full single precision (e.g., $10^{-7}$) is often suboptimal.}
+    \label{fig:consph_v_curve}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{sensitivity_cfd1.png}
+        \caption{Sensitivity Analysis for \texttt{cfd1}.}
+        \label{fig:cfd1_sensitivity}
+    \end{minipage}\hfill
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{sensitivity_cfd2.png}
+        \caption{Sensitivity Analysis for \texttt{cfd2}.}
+        \label{fig:cfd2_sensitivity}
+    \end{minipage}
+\end{figure}
+
+\section{Conclusion}
+
+From this Study of Mixed Precision Iterative refinement systems, we learned that it is a very effective strategy for speeding up the time in solving large sparse symmetric positive definite systems. This is very important for real world hyper computing problems, such as the Pressure Poisson Equation or 2D/3D engineering problems. By offloading most of the computational work to a single-precision inner solver while also maintaining a double-precision outer loop, we were able to test the theory that mixed-precion significantly improves performance gains without compromising the final accuracy of the solution.
+
+The results from our experiment show that the MPIR approach consistently outperformed standard a double-precision Conjugate Gradient solver. The fixed-tolerance configuration ($\tau=10^{-7}$) showed speedups ranging from $2.1\times$ to $6.0\times$ and, by tuning the inner solver's termination tolerance ($\tau$), we achieved even greater efficiency, with speedups reaching as high as $8.6\times$ for the \texttt{cfd2} matrix. This confirmed that solving the inner correction system to full single-precision accuracy is often unnecessary and computationally wasteful.
+
+The sensitivity results revealed a "descent-to-ascent" behavior in the total solution time as a function of $\tau$. For most matrices, a looser tolerance (e.g., $\tau=10^{-2}$) provided the optimal balance between inner solver cost and outer loop convergence. We found though, the optimal $\tau$ is problem-dependent, we see with \texttt{cfd2}, which benefited from a tighter tolerance. This suggests that the strategies for selecting $\tau$ could be a valuable direction for future research.
+
+In conclusion, Mixed Precision Iterative Refinement offers a strong path for optimizing solving systems of Algebraic expressions with linear solvers in High Performance Computing. The better we are able to comprehend and optimize this strategy, the more opimized systems we will be able to create. 
+
+% BIBLIOGRAPHY: Create or upload a bib file to manage your references. For instructions, see www.overleaf.com/learn/how-to/Using_bibliographies_on_Overleaf. Citations will use the Chicago Manual of Style notes and bibliography citation format, described at www.chicagomanualofstyle.org/tools_citationguide/citation-guide-1.html.
+
+\printbibliography
+
+\end{document}
