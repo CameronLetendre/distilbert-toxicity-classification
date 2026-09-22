@@ -1,5 +1,30 @@
+# Data (CONDA is not redistributable) and local artefacts
 data/
 .venv/
 results/
 test_images/
 debug/
+
+# Python
+__pycache__/
+*.pyc
+
+# LaTeX build artifacts
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.run.xml
+*.synctex.gz
+*-SAVE-ERROR
+texput.log
+
+# Local tool settings
+.claude/settings.local.json
+
+# Keep the tracked training/eval logs despite *.log above
+!logs/*.log
