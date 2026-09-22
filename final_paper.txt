@@ -1,9 +1,0 @@
-Inside this paper we explore the possibility of creating a more accuracte prediction 
-of toxicity in gaming messages, while trying to preserve speed for a real-time overlay. 
-Modern gaming is known to be very structurally different from common langauge, but more 
-than that because of the heavy involvement of slang, acronyms, and in-game vocabulary
-along with an average of 4 characters per message this creates a challenge for machine 
-learning to predict the meaning of utterances. In this paper we attempt to do intent classification for
-predicting them into one of four groups. (E) Explicit Toxicity, (I) Implicit Toxicity,
-(A) Action, and (O) Other. This classification task for this assigment is done by a 
-distilbert model that is fine tuned on a labeled dataset known as CONDA. 
