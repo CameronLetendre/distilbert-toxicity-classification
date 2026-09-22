@@ -23,8 +23,13 @@ __pycache__/
 *-SAVE-ERROR
 texput.log
 
-# Local tool settings
-.claude/settings.local.json
+# Local assistant / tool settings
+.claude/
 
 # Keep the tracked training/eval logs despite *.log above
 !logs/*.log
+
+# Analysis outputs that contain verbatim CONDA utterances (not redistributable)
+analysis/label_time_independence/repeated_utterances.csv
+analysis/label_time_independence/inconsistent_labels.csv
+analysis/label_time_independence/keyword_examples.json
