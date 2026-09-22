@@ -5,18 +5,18 @@ numpy
 # Model
 torch
 transformers
+scikit-learn==1.8.0
 
-# OCR
+# OCR / image processing
 mss
 easyocr
 pytesseract
+opencv-python==4.13.0.92
 
-# Visualization
+# Visualization & analysis
 matplotlib
+scipy==1.17.1
 
 # Notebook support
 jupyter
 ipykernel
-
-# Utilities
-pickle5; python_version < "3.8"
