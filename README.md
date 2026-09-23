@@ -15,7 +15,7 @@ produced a small but consistent **negative** result across all four classes; the
 ## The problem
 
 In-game chat is dominated by ordinary messages. Toxicity is rare, and the rarest categories
-are the ones that matter most — implicit toxicity is easy to miss and easy for a naive model
+are the ones that matter most. Implicit toxicity is easy to miss and easy for a untrained model
 to ignore entirely. A classifier that predicts "not toxic" for everything scores 74% accuracy
 on this data and is useless.
 
@@ -23,7 +23,7 @@ That shapes every decision below.
 
 ## Dataset
 
-[**CONDA**](https://github.com/usydnlp/CONDA) — Weld et al., *CONDA: a CONtextual
+[**CONDA**](https://github.com/usydnlp/CONDA) - Weld et al., *CONDA: a CONtextual
 Dual-Annotated dataset for in-game toxicity understanding and detection*, Findings of
 ACL-IJCNLP 2021.
 
@@ -45,7 +45,7 @@ ACL-IJCNLP 2021.
 The token-level slot labels (toxicity word, game slang, character name, Dota term, pronoun,
 other) are not used.
 
-### Class distribution — training split
+### Class distribution - training split
 
 | Class | Count | Share | Loss weight |
 |---|---:|---:|---:|
@@ -57,7 +57,7 @@ other) are not used.
 
 Weights are `total / (num_classes × class_count)`, applied to the cross-entropy loss so the
 two minority toxicity classes are not drowned out by `O`. Class weighting is the *entire*
-imbalance strategy — no oversampling, no augmentation. That is deliberate: the point of
+imbalance strategy, no oversampling, no augmentation. That is deliberate: the point of
 comparison is JointBERT trained on CONDA as released, and resampling would change the
 training distribution, making any difference impossible to attribute cleanly.
 
@@ -68,12 +68,12 @@ Seven of ten columns are dropped; `utterance`, `chatTime` and `intentClass` are 
 1. **Time normalisation.** `chatTime` is signed seconds (negative = pre-game lobby). Clipped
    to `[-90, 3600]`, then min-max scaled to `[0, 1]`.
 2. **`[SEPA]` removal**, so each row is a self-contained utterance.
-3. **Duplicate handling.** Duplicates on `(utterance, chatTime)` are flagged but kept — short
+3. **Duplicate handling.** Duplicates on `(utterance, chatTime)` are flagged but kept. Short
    repeated phrases ("GG WP", ":D", "?") are real game behaviour, not data errors.
 4. **NaN handling.** One NaN utterance in the validation split dropped.
 5. **Label validation.** All labels verified to lie in `{A, E, I, O}`.
 
-The dataset is **not redistributed here** — see [Setup](#setup).
+The dataset is **not redistributed here** - see [Setup](#setup).
 
 ## Model
 
